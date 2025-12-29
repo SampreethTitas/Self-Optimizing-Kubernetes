@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: load-optimizer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: load-optimizer
+  template:
+    metadata:
+      labels:
+        app: load-optimizer
+    spec:
+      containers:
+      - name: load-optimizer
+        image: load-optimizer:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
