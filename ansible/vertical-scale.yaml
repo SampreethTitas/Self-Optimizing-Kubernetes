@@ -1,0 +1,11 @@
+- name: Vertical scaling Kubernetes deployment
+  hosts: local
+  gather_facts: no
+
+  tasks:
+    - name: Increase CPU resources for load-optimizer
+      command: >
+        kubectl set resources deployment load-optimizer
+        --requests=cpu=400m
+        --limits=cpu=800m
+

@@ -1,0 +1,11 @@
+- name: Rollback CPU resources for load-optimizer
+  hosts: local
+  gather_facts: no
+
+  tasks:
+    - name: Roll back CPU requests and limits
+      command: >
+        kubectl set resources deployment load-optimizer
+        --requests=cpu=200m
+        --limits=cpu=500m
+

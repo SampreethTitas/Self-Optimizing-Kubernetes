@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "6"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"name":"load-optimizer","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"load-optimizer"}},"template":{"metadata":{"labels":{"app":"load-optimizer"}},"spec":{"containers":[{"image":"load-optimizer:v1","imagePullPolicy":"IfNotPresent","name":"load-optimizer","ports":[{"containerPort":5000}],"resources":{"limits":{"cpu":"500m"},"requests":{"cpu":"200m"}}}]}}}}
+  creationTimestamp: "2025-12-29T08:02:45Z"
+  generation: 22
+  name: load-optimizer
+  namespace: default
+  resourceVersion: "14526"
+  uid: 16830f3e-62ee-46c5-b80d-fa4f8f069a80
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 4
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: load-optimizer
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: load-optimizer
+    spec:
+      containers:
+      - image: load-optimizer:v1
+        imagePullPolicy: IfNotPresent
+        name: load-optimizer
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 4
+  conditions:
+  - lastTransitionTime: "2025-12-29T16:26:50Z"
+    lastUpdateTime: "2025-12-30T07:07:50Z"
+    message: ReplicaSet "load-optimizer-84df6b48fc" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  - lastTransitionTime: "2025-12-30T07:26:29Z"
+    lastUpdateTime: "2025-12-30T07:26:29Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  observedGeneration: 22
+  readyReplicas: 4
+  replicas: 4
+  updatedReplicas: 4
